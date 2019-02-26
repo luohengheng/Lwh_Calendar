@@ -1,6 +1,6 @@
 # lwh_calendar
 
-![image](https://github.com/luohengheng/Lwh_Calendar/blob/master/readme/lwh_calendar.mov)
+![image](https://github.com/luohengheng/Lwh_Calendar/blob/master/readme/lwh_calendar.gif)
 
 ## Build Setup
 
