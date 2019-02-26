@@ -9,7 +9,9 @@
             <span class="my_content_item"
               v-for="(iitem, index2) in item"
               :key="index2"
+              :style="{'width': singleW+'px', 'height': singleW+'px'}"
               :class="{
+               'width': singleW + 'px', 'height': singleW + 'px' ,
                 my_item_grey: isGrey(iitem),
                 my_item_today: iitem.isToday,
                 my_item_check: judgeDate(iitem)
@@ -29,12 +31,16 @@
         name: "MyCalendar",
         data() {
             return {
-                headtop: '',
-                today: [],
-                list: [],
-                checkDate: false,
-                chooseStart: '',
-                chooseEnd: '',
+              headtop: '',
+              today: [],
+              list: [],
+              checkDate: false,
+              chooseStart: '',
+              chooseEnd: '',
+              //屏幕宽度
+              screenW: window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
+              //屏幕分7份，单份宽度
+              singleW: 0,
             }
         },
         props: {
@@ -45,6 +51,7 @@
         },
         mounted() {
             this.initData()
+            this.singleW = this.screenW / 7
         },
         computed: {
 
@@ -78,11 +85,11 @@
             },
             preMonth() {
                 this.today = timeutil.getOtherMonth(this.today, "preMonth");
-                this.getList(this.today);
+                this.list[0] = this.getList(this.today);
             },
             nextMonth() {
                 this.today = timeutil.getOtherMonth(this.today, "nextMonth");
-                this.getList(this.today)
+                this.list[0] = this.getList(this.today)
             },
             checkDay(item) {
                 if(item.otherMonth === 'preMonth' || item.otherMonth === 'nextMonth') {
@@ -101,7 +108,11 @@
                         console.error(this.chooseEnd + '------chooseEnd')
                     }
                 }
-                (item.otherMonth === 'preMonth' || item.otherMonth === 'nextMonth') ? '' : this.$toast(item.date)
+
+                // (item.otherMonth === 'preMonth' || item.otherMonth === 'nextMonth') ? '' : this.$toast(item.date)
+                if(!(item.otherMonth === 'preMonth' || item.otherMonth === 'nextMonth')) {
+                  this.$toast(item.date)
+                }
             },
             getList(date) {
                 this.headtop = `${date.getFullYear()}年${date.getMonth() + 1}月`;
@@ -109,13 +120,6 @@
 
             }
         },
-        watch: {
-            list() {
-                this.$nextTick(_ => {
-
-                })
-            }
-        }
     }
 </script>
 
@@ -150,8 +154,6 @@
             flex-direction: row;
             margin-bottom: 1px;
             .my_content_item{
-                width: 50px;
-                height: 50px;
                 line-height: 50px;
                 font-size: 15px;
                 background-color: white;
