@@ -1,6 +1,6 @@
 # lwh_calendar
 
-> A Vue.js project
+![image](https://github.com/luohengheng/Lwh_Calendar/blob/master/readme/%E8%9B%87%E7%B2%BE%E7%8C%AB.gif)
 
 ## Build Setup
 
